@@ -1,38 +1,26 @@
-import { useFrame } from "@react-three/fiber";
 import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Mesh } from "three";
 
 const Experience = () => {
+  const objectRef = useRef(null);
 
-    const knotRef = useRef (); 
-
-    useFrame((state, delta )=>{
-        knotRef.current.rotation.y += delta 
-    })
+  useFrame(() => {
+    if (objectRef.current) {
+      objectRef.current.rotation.y += 0.01; // Slow rotation
+    }
+  });
 
   return (
     <>
-    <ambientLight intensity={0.5} />
-    <directionalLight
-        castShadow
-        intensity={1.5}
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-        position={[1,5,4]}
-
-    />
-
-    <mesh castShadow ref={knotRef}>
-
-        <torusKnotGeometry scale={1} />
-        <meshStandardMaterial color={"mediumpurple"}  />  
-    </mesh>
-  
-    <mesh receiveShadow position-y={-2} scale={10 } rotation-x={-Math.PI * 0.25} >
-        <planeGeometry />
-        <meshStandardMaterial color={"yellow"} />
-    </mesh>
+      <ambientLight intensity={0.5} />
+      <directionalLight position={[10, 10, 5]} intensity={1} />
+      <mesh ref={objectRef} castShadow>
+        <boxGeometry args={[2, 2, 2]} />
+        <meshStandardMaterial color="orange" />
+      </mesh>
     </>
-  )
-}
+  );
+};
 
-export default Experience
+export default Experience;
