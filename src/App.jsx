@@ -1,12 +1,14 @@
 import { Canvas } from "@react-three/fiber"
 import Experience from "./Experience"
 import { OrbitControls } from "@react-three/drei"
+import {Perf} from "r3f-perf";
+
 
 const App = () => {
   return (
     <div id="canvas-container" className="fixed top-0 left-0 w-full h-full">
       <Canvas 
-
+        shadows
         camera={{
             fov:45,
           near:0.1,
@@ -16,6 +18,7 @@ const App = () => {
       >
         <Experience />
         <OrbitControls makeDefault  />
+        <Perf position="top-left" />
       </Canvas>
     </div>
   )
